@@ -19,55 +19,46 @@ export function Preview({ markdown }: PreviewProps) {
   //console.log(result);
 
   return (
-    <div className="h-full border-2 border-gray-400 prose prose-invert max-w-none p-8 overflow-auto bg-gray-900 rounded-lg">
+    <div className="h-full border-2 border-gray-400 prose prose-invert max-w-none p-8 overflow-auto bg-white rounded-lg">
        <Markdown
       remarkPlugins={[remarkGfm]}
       rehypePlugins={[rehypeHighlight]}
         components={{
           h1: ({ node, ...props }) => (
-            <h1 className="text-3xl font-bold mb-4" {...props} />
+            <h1 className="text-3xl font-bold mb-4 text-[#212529]" {...props} />
           ),
           h2: ({ node, ...props }) => (
-            <h2 className="text-2xl font-bold mb-3" {...props} />
+            <h2 className="text-2xl font-bold mb-3 text-[#212529]" {...props} />
           ),
           h3: ({ node, ...props }) => (
-            <h3 className="text-xl font-bold mb-2" {...props} />
+            <h3 className="text-xl font-bold mb-2 text-[#212529] " {...props} />
           ),
           p: ({ node, ...props }) => (
-            <p className="mb-4 text-gray-300" {...props} />
+            <p className="mb-4 text-[#212529] " {...props} />
           ),
           a: ({ node, ...props }) => (
-            <a className="text-blue-400 hover:text-blue-300" {...props} />
+            <a className="text-blue-700 underline hover:text-blue-900" {...props} />
           ),
           ul: ({ node, ...props }) => (
-            <ul className="list-disc list-inside mb-4" {...props} />
+            <ul className="list-disc list-inside mb-4 text-[#212529] " {...props} />
           ),
           ol: ({ node, ...props }) => (
-            <ol className="list-decimal list-inside mb-4" {...props} />
+            <ol className="list-decimal list-inside mb-4 text-[#212529] " {...props} />
           ),
-          code: ({ node, inline, ...props }) =>
-            inline ? (
-              <code className="bg-gray-800 px-1 rounded" {...props} />
-            ) : (
+          code: ({ node, ...props }) => (
               <code
-                className="block bg-gray-800 p-4 rounded-lg mb-4"
+                className="block bg-gray-200 p-4 rounded-lg mb-4 text-[#212529] "
                 {...props}
               />
             ),
           blockquote: ({ node, ...props }) => (
             <blockquote
-              className="border-l-4 border-gray-700 pl-4 italic my-4"
+              className="border-l-4 border-gray-950 pl-4 italic my-4 text-[#212529] "
               {...props}
             />
           ),
           del: ({ node, ...props }) => (
-            <del className="text-gray-500 line-through" {...props} />
-          ),
-          mark: ({ node, ...props }) => (
-            <mark
-              className="bg-yellow-200 text-gray-900 px-1 rounded"
-              {...props}
-            />
+            <del className="text-gray-600 line-through" {...props} />
           ),
         }}
       >
