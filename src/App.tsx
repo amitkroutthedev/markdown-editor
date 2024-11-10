@@ -1,8 +1,8 @@
+import { Github } from "lucide-react";
 import { useState } from "react";
+import "./App.css";
 import { Editor } from "./components/Editor";
 import { Preview } from "./components/Preview";
-import "./App.css";
-import { Github } from "lucide-react";
 
 const initialMarkdown = `# Welcome to the Markdown Editor
 
@@ -31,18 +31,30 @@ function App() {
 
   return (
     <div className="h-screen text-[#274c77]" style={{
-      backgroundImage: `
-        linear-gradient(#e5e5e5 1px, transparent 1px),
-        linear-gradient(90deg, #e5e5e5 1px, transparent 1px)
-      `,
-      backgroundSize: '20px 20px'
     }}>
-      <header className="h-20 flex items-center px-4 justify-between">
-        <p className="text-3xl bg-white">Markdown Editor</p>
-        <a className="mx-10 bg-white w-fit"><Github/></a>
+      <header className="h-12 flex items-center px-4 justify-between bg-[#3D405B] text-[#F4F1DE]">
+        <p className="text-xl">Markdown Editor</p>
+        <a className="mx-10 w-fit" href="https://github.com/amitkroutthedev/markdown-editor"><Github/></a>
       </header>
-      <div className="mx-auto p-4 h-[calc(100vh-5rem)]">
-        <div className="shadow-xl overflow-hidden h-full flex items-center space-x-2">
+      <div className="mx-auto h-[calc(100vh-3rem)]">
+      <div className="shadow-xl overflow-hidden h-full flex items-center space-x-2">
+      {<div className="max-sm:w-full w-1/2 h-full border-r-2">
+            {isPreview ? (
+              <Preview markdown={markdown} isPreview={isPreview} togglePreview={() => setIsPreview(!isPreview)} />
+            ) : (
+              <Editor
+                markdown={markdown}
+                setMarkdown={setMarkdown}
+                isPreview={isPreview}
+                togglePreview={() => setIsPreview(!isPreview)}
+              />
+            )}
+          </div>}
+        <div className="max-sm:hidden h-full w-1/2 overflow-auto">
+            <Preview markdown={markdown} isPreview={isPreview} togglePreview={() => setIsPreview(!isPreview)} />
+          </div>
+        </div>
+        {/* <div className="shadow-xl overflow-hidden h-full flex items-center space-x-2">
           <div className="max-sm:w-full w-1/2 h-full">
             {isPreview ? (
               <Preview markdown={markdown} />
@@ -58,7 +70,7 @@ function App() {
           <div className="max-sm:hidden h-full w-1/2 overflow-auto">
             <Preview markdown={markdown} />
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

@@ -1,8 +1,9 @@
 import {
+  Code2,
   Copy,
   Download,
-  FileEdit,
   Eye,
+  FileEdit,
   Heading1,
   Heading2,
   Heading3,
@@ -10,12 +11,14 @@ import {
   Heading5,
   Heading6,
   LinkIcon,
-  ListOrdered,
   ListIcon,
-  Code2,
+  ListOrdered,
   LucideTextQuote,
   Strikethrough,
 } from "lucide-react";
+
+import TooltipButton from "../ui/ToolTipButton";
+
 
 
 
@@ -32,7 +35,10 @@ export function Editor({
   isPreview,
   togglePreview,
 }: EditorProps) {
+
   const handleCopy = async () => {
+    const textarea = document.getElementById("texteditorId") as HTMLTextAreaElement;
+    textarea?.select();
     try {
       await navigator.clipboard.writeText(markdown);
     } catch (err) {
@@ -88,7 +94,7 @@ export function Editor({
     const inputEl = document.getElementById("texteditorId") as HTMLInputElement;
     if (!inputEl) return;
     // Put the tags at current cursor position
-    const pos = inputEl.selectionStart??0;
+    const pos = inputEl.selectionStart ?? 0;
     const val = inputEl.value;
     const start = val.substring(0, pos);
     const end = val.substring(pos, val.length);
@@ -108,11 +114,11 @@ export function Editor({
     // Get the selected text
     const sel = inputEl.value.substring(start, end);
     let selectedText;
-    if(codetext==="code"){
+    if (codetext === "code") {
       selectedText = sel ? `\n${sel}\n` : "\n\n";
       inputEl.selectionStart = inputEl.selectionEnd = start + text.length + selectedText.length;
     }
-    if(codetext==="strikethrough"){
+    if (codetext === "strikethrough") {
       selectedText = sel
       inputEl.selectionStart = inputEl.selectionEnd = start + text.length + selectedText.length;
     }
@@ -127,57 +133,94 @@ export function Editor({
   }
 
   return (
-    <div className="h-full flex flex-col  border-2 border-black rounded-xl">
-      <div className="flex flex-wrap items-center h-fit p-1 bg-[#3a506b] text-[#a3cef1] rounded-t-lg">
-        <div className="flex flex-wrap items-center gap-3 px-1">
-          <button onClick={() => addCode("h1")}>
-            <Heading1 />
+    <div className="h-full flex flex-col bg-white">
+      <div className="flex justify-between flex-col items-center h-fit text-[#3a506b] border-[#3a506b] border-2 rounded-b-xl  ">
+        <div className="flex flex-wrap items-center justify-start w-full gap-3 p-1">
+          <TooltipButton button={
+            <p onClick={() => addCode("h1")}>
+              <Heading1 size={20} />
+            </p>
+          } content="heading1" />
+          <TooltipButton button={
+            <p onClick={() => addCode("h2")}>
+              <Heading2 size={20} />
+            </p>} content="heading 2" />
+          <TooltipButton button={
+            <p onClick={() => addCode("h3")}>
+              <Heading3 size={20} />
+            </p>} content="heading3" />
+          <TooltipButton button={
+            <p onClick={() => addCode("h4")}>
+              <Heading4 size={20} />
+            </p>} content="heading4" />
+          <TooltipButton button={
+            <p onClick={() => addCode("h5")}>
+              <Heading5 size={20} />
+            </p>} content="heading5" />
+          <TooltipButton button={
+            <p onClick={() => addCode("h6")}>
+              <Heading6 size={20} />
+            </p>} content="heading6" />
+          <TooltipButton button={
+            <p onClick={() => addCode("link")}>
+              <LinkIcon size={20} />
+            </p>} content="link" />
+          <TooltipButton button={
+            <p onClick={() => addCode("ulist")}>
+              <ListIcon size={20} />
+            </p>} content="ul" />
+          <TooltipButton button={
+            <p onClick={() => addCode("olist")}>
+              <ListOrdered size={20} />
+            </p>} content="ol" />
+          <TooltipButton button={
+            <p onClick={() => addCode("textblock")}>
+              <LucideTextQuote size={20} />
+            </p>} content="textblock" />
+          <TooltipButton button={
+            <p onClick={() => subAddCode("code")}>
+              <Code2 size={20} />
+            </p>} content="code" />
+          <TooltipButton button={
+            <p onClick={() => subAddCode("strikethrough")}>
+              <Strikethrough size={20} />
+            </p>} content="strikethrough" />
+        </div>
+      </div>
+      <div className="flex items-center justify-end">
+        <div className="flex items-center">
+          <button
+            onClick={togglePreview}
+            className="max-sm:flex hidden items-center gap-2 px-3 py-1.5 rounded text-sm"
+          >
+            {isPreview ? <FileEdit size={18} /> : <Eye size={18} />}
           </button>
-          <button onClick={() => addCode("h2")}>
-            <Heading2 />
+          <button
+            onClick={handleCopy}
+            className="flex items-center gap-2 px-3 py-1.5 rounded text-sm"
+            title="Copy to clipboard"
+          >
+            <Copy size={18} />
           </button>
-          <button onClick={() => addCode("h3")}>
-            <Heading3 />
-          </button>
-          <button onClick={() => addCode("h4")}>
-            <Heading4 />
-          </button>
-          <button onClick={() => addCode("h5")}>
-            <Heading5 />
-          </button>
-          <button onClick={() => addCode("h6")}>
-            <Heading6 />
-          </button>
-          <button onClick={() => addCode("link")}>
-            <LinkIcon />
-          </button>
-          <button onClick={() => addCode("ulist")}>
-            <ListIcon />
-          </button>
-          <button onClick={() => addCode("olist")}>
-            <ListOrdered />
-          </button>
-          <button onClick={() => addCode("textblock")}>
-            <LucideTextQuote />
-          </button>
-          <button onClick={() => subAddCode("code")}>
-            <Code2 />
-          </button>
-          <button onClick={() => subAddCode("strikethrough")}>
-            <Strikethrough />
+          <button
+            onClick={handleDownload}
+            className="flex items-center gap-2 px-3 py-1.5 rounded text-sm"
+            title="Download markdown"
+          >
+            <Download size={18} />
           </button>
         </div>
       </div>
       <textarea
         value={markdown}
         onChange={(e) => setMarkdown(e.target.value)}
-        className="overflow-y-auto flex-1 w-full p-4 text-[#274c77] font-mono resize-none focus:outline-none"
+        className="overflow-y flex-1 w-full px-4 text-[#274c77] font-mono resize-none focus:outline-none"
         placeholder="Write your markdown here..."
         autoFocus
         id="texteditorId"
-      /> 
-      
-      <div className="h-10 flex items-center gap-2 py-2 justify-end bg-white rounded-b-xl border-t-2 border-black">
+      />
+
+      {/* <div className="h-10 flex items-center gap-2 py-2 justify-end bg-white rounded-b-xl border-t-2 border-black">
         <button
           onClick={togglePreview}
           className="max-sm:flex hidden items-center gap-2 px-3 py-1.5 rounded hover:bg-gray-700 transition-colors"
@@ -199,7 +242,7 @@ export function Editor({
         >
           <Download size={18} /> Download
         </button>
-      </div>
+      </div> */}
     </div>
   );
 }
