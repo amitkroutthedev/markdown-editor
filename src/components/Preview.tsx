@@ -4,7 +4,7 @@ import { Eye, FileEdit } from "lucide-react";
 import markdownit from "markdown-it";
 import { useState } from "react";
 import { MdHtml } from "react-icons/md";
-import Markdown from "react-markdown";
+import ReactMarkdown from "react-markdown";
 import rehypeHighlight from "rehype-highlight";
 import remarkGfm from "remark-gfm";
 
@@ -34,24 +34,19 @@ export function Preview({ markdown,isPreview,togglePreview }: PreviewProps) {
   }
 
   return (
-    <div className="h-full overflow-auto max-w-none bg-white">
-      <div className="flex items-end justify-end px-5 py-1 w-full">
-      <button
-          onClick={togglePreview}
-          className="max-sm:flex hidden items-center gap-2 px-3 py-1.5 rounded text-sm"
-        >
-          {isPreview ? <FileEdit size={18} /> : <Eye size={18} />}
-        </button>
-        <button onClick={toggleHTMLContentHandler} className={`text-slate-500 px-5 rounded-xl ${hbtnClick ? "border border-slate-400" : ""}`}>
+    <div className="h-[30em] overflow-none max-w-none bg-white">    
+      <div className="flex justify-between items-center mb-2">
+      <h2 className="text-lg font-semibold">Preview</h2>
+      <button onClick={toggleHTMLContentHandler} className={`text-slate-700 px-5 rounded-xl ${hbtnClick ? "border border-slate-400" : ""}`}>
           <MdHtml size={30}  />
         </button>
       </div>
-      <div className="prose prose-invert px-8">
+      <div className="border-2 border-black prose prose-invert max-w-none overflow-y-auto">
         {hbtnClick ? (
           <pre>
             <code className="text-black">{content}</code></pre>
         ) : (
-          <Markdown
+          <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeHighlight]}
             components={{
@@ -76,12 +71,12 @@ export function Preview({ markdown,isPreview,togglePreview }: PreviewProps) {
               ol: ({ node, ...props }) => (
                 <ol className="list-decimal list-inside mb-4 text-[#212529] " {...props} />
               ),
-              code: ({ node, ...props }) => (
-                  <code
-                    className="block bg-gray-200 p-4 rounded-lg mb-4 text-[#212529] "
-                    {...props}
-                  />
-                ),
+              // code: ({ node, ...props }) => (
+              //     <code
+              //       className="block bg-gray-200 p-4 rounded-lg mb-4 text-[#212529] "
+              //       {...props}
+              //     />
+              //   ),
               blockquote: ({ node, ...props }) => (
                 <blockquote
                   className="border-l-4 border-gray-950 pl-4 italic my-4 text-[#212529] "
@@ -94,7 +89,7 @@ export function Preview({ markdown,isPreview,togglePreview }: PreviewProps) {
             }}
           >
             {markdown}
-          </Markdown>
+          </ReactMarkdown>
         )}
       </div>
     </div>
