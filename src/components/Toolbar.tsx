@@ -1,6 +1,6 @@
-import { Bold, Clipboard, Code, CodeSquareIcon, Download, Heading1, Heading2, Heading3, Heading4, Heading5, Heading6, Image, Link, List, ListOrdered, LucideTextQuote, Strikethrough } from 'lucide-react'
-import { Button } from '../ui/Button'
+import { Bold, Clipboard, Code, CodeSquareIcon, Download, Heading1, Heading2, Heading3, Image, Link, List, ListOrdered, LucideTextQuote, Strikethrough } from 'lucide-react'
 import { EditorProps } from '../types/markdowntpye'
+import { Button } from '../ui/Button'
 
 export function Toolbar({markdown,setMarkdown}:EditorProps) {
     const toolbarButtons = [

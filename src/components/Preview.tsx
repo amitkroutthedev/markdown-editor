@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 
-import { Eye, FileEdit } from "lucide-react";
 import markdownit from "markdown-it";
 import { useState } from "react";
 import { MdHtml } from "react-icons/md";
@@ -19,7 +18,7 @@ interface PreviewProps {
   <mark className="bg-yellow-200 text-gray-900 px-1 rounded">{children}</mark>
 );*/
 
-export function Preview({ markdown,isPreview,togglePreview }: PreviewProps) {
+export function Preview({ markdown }: PreviewProps) {
   const [hbtnClick, setHbtnClick] = useState(false);
   const [content, setContent] = useState(markdown);
   const md = markdownit();

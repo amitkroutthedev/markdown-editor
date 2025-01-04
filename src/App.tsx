@@ -8,6 +8,8 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from ".
 import { Toolbar } from "./components/Toolbar";
 import { allTemplates } from "./lib/selectmarkdown";
 
+type ContentType = 'standard' | 'portfolio' | 'product';
+
 const initialMarkdown = `# Welcome to the Markdown Editor
 
 ## Features
@@ -32,12 +34,11 @@ console.log(greeting);
 function App() {
   const [markdown, setMarkdown] = useState(initialMarkdown);
   const [isPreview, setIsPreview] = useState(false);
-  const [contentType, setContentType] = useState('standard')
+  const [contentType, setContentType] = useState<ContentType>('standard');
   
-  useEffect(()=>{
-    console.log(contentType)
-    setMarkdown(allTemplates[contentType])
-  },[contentType])
+  useEffect(() => {
+    setMarkdown(allTemplates[contentType as keyof typeof allTemplates])
+  }, [contentType])
 
   return (
     <div className="min-h-screen bg-gray-50 p-4 md:p-8">
@@ -45,7 +46,7 @@ function App() {
       <CardContent className="p-6">
       <div className="mb-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <h1 className="text-2xl font-bold">Markdown Editor</h1>
-            <Select value={contentType} onValueChange={setContentType}>
+            <Select value={contentType} onValueChange={(value: ContentType) => setContentType(value)}>
               <SelectTrigger className="w-[200px]">
                 <SelectValue placeholder="Select content type" />
               </SelectTrigger>
