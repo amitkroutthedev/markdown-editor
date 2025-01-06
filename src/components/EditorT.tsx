@@ -219,7 +219,6 @@ export function Editor({
         autoFocus
         id="texteditorId"
       />
-
       {/* <div className="h-10 flex items-center gap-2 py-2 justify-end bg-white rounded-b-xl border-t-2 border-black">
         <button
           onClick={togglePreview}

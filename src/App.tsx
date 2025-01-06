@@ -60,12 +60,12 @@ function App() {
           <Toolbar markdown={markdown}
                 setMarkdown={setMarkdown}/>
           <div className="grid gap-4 md:grid-cols-2">
-            <div className="rounded-lg border border-gray-200 bg-white p-4 h-full overflow-y-auto">
+            <div className="rounded-lg border border-gray-200 bg-white p-4 h-full">
               <h2 className="mb-2 text-lg font-semibold">Edit</h2>
               <Editor markdown={markdown}
                 setMarkdown={setMarkdown}/>
             </div>
-            <div className="rounded-lg border border-gray-200 bg-white p-4 overflow-y-scroll">
+            <div className="rounded-lg border border-gray-200 bg-white p-4 overflow-y-auto">
                 <Preview markdown={markdown} isPreview={isPreview} togglePreview={() => setIsPreview(!isPreview)}/>
             </div>
           </div>

@@ -40,7 +40,7 @@ export function Preview({ markdown }: PreviewProps) {
           <MdHtml size={30}  />
         </button>
       </div>
-      <div className="border-2 border-black prose prose-invert max-w-none overflow-y-auto">
+      <div className="prose prose-invert max-w-none overflow-y-auto">
         {hbtnClick ? (
           <pre>
             <code className="text-black">{content}</code></pre>
